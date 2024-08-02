@@ -33,7 +33,7 @@ export class BookService {
   }
 
   async findOne(bookId: string) {
-    console.log(bookId, 'kakaka');
+    console.log('bookId', bookId);
     const result = await dynamoDBClient()
       .get({
         TableName: TABLE_NAME,
