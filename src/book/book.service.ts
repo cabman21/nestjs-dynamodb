@@ -8,20 +8,6 @@ const { TABLE_NAME } = process.env;
 
 @Injectable()
 export class BookService {
-  async create(createBookDto: CreateBookDto) {
-    return await dynamoDBClient()
-      .put({
-        TableName: TABLE_NAME,
-        Item: {
-          bookId: uuid(),
-          title: createBookDto.title,
-          author: createBookDto.author,
-          publicationYear: createBookDto.publicationYear,
-        },
-      })
-      .promise();
-  }
-
   async findAll() {
     const results = await dynamoDBClient()
       .scan({
@@ -42,6 +28,20 @@ export class BookService {
       .promise();
 
     return result.Item;
+  }
+
+  async create(createBookDto: CreateBookDto) {
+    return await dynamoDBClient()
+      .put({
+        TableName: TABLE_NAME,
+        Item: {
+          bookId: uuid(),
+          title: createBookDto.title,
+          author: createBookDto.author,
+          publicationYear: createBookDto.publicationYear,
+        },
+      })
+      .promise();
   }
 
   async update(bookId: string, updateBookDto: UpdateBookDto) {
